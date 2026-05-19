@@ -4,16 +4,17 @@ import { MapPin, Calendar, Image, Lock, Clock } from 'lucide-react'
 import { TRIP_STATUSES } from '../data/mockData'
 import { useAuth } from '../context/AuthContext'
 
+function exactDate(dateStr) {
+  return new Date(dateStr).toLocaleString('uk-UA', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+}
+
 function timeAgo(dateStr) {
   if (!dateStr) return ''
   const diff = Math.floor((Date.now() - new Date(dateStr)) / 1000)
   if (diff < 60) return 'щойно'
   if (diff < 3600) { const m = Math.floor(diff / 60); return `${m} хв тому` }
-  if (diff < 86400) { const h = Math.floor(diff / 3600); return `${h} год тому` }
-  if (diff < 7 * 86400) { const d = Math.floor(diff / 86400); return `${d} ${d === 1 ? 'день' : d < 5 ? 'дні' : 'днів'} тому` }
-  if (diff < 30 * 86400) { const w = Math.floor(diff / (7 * 86400)); return `${w} ${w === 1 ? 'тиждень' : w < 5 ? 'тижні' : 'тижнів'} тому` }
-  if (diff < 365 * 86400) { const mo = Math.floor(diff / (30 * 86400)); return `${mo} міс тому` }
-  return new Date(dateStr).toLocaleDateString('uk-UA', { day: 'numeric', month: 'short', year: 'numeric' })
+  if (diff < 2 * 86400) { const h = Math.floor(diff / 3600); return `${h} год тому` }
+  return exactDate(dateStr)
 }
 
 export default function TripCard({ trip }) {
@@ -90,7 +91,10 @@ export default function TripCard({ trip }) {
           <span className="text-xs text-stone-400">{duration} {duration === 1 ? 'день' : duration < 5 ? 'дні' : 'днів'}</span>
           <div className="flex items-center gap-3">
             {trip.createdAt && (
-              <span className="flex items-center gap-1 text-xs text-stone-400">
+              <span
+                title={exactDate(trip.createdAt)}
+                className="flex items-center gap-1 text-xs text-stone-400 cursor-default"
+              >
                 <Clock size={10} className="shrink-0" />{timeAgo(trip.createdAt)}
               </span>
             )}
