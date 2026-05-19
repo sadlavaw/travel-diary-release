@@ -1,4 +1,10 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react'
+
+const safeUrl = (url) => {
+  if (!url) return ''
+  const t = url.trim()
+  return /^https?:\/\//i.test(t) ? t : ''
+}
 import { Plus, Trash2, ImageIcon, Map, FileText, TramFront, Home, Minus, ChevronUp, ChevronDown, MapPin, PlaneTakeoff, PlaneLanding, Wallet, BookOpen } from 'lucide-react'
 import DatePicker from './DatePicker'
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
@@ -224,7 +230,7 @@ function TransportBlock({ block, onChange, editable }) {
         {depDate && <p className="text-sm text-stone-500 flex items-center gap-1"><PlaneTakeoff size={12} className="shrink-0" /> Відправлення: {fmt(depDate, block.departureTime)}</p>}
         {arrDate && <p className="text-sm text-stone-500 flex items-center gap-1"><PlaneLanding size={12} className="shrink-0" /> Прибуття: {fmt(arrDate, block.arrivalTime)}</p>}
         {block.price && <p className="text-sm font-semibold text-brand-700 flex items-center gap-1"><Wallet size={12} className="shrink-0" /> {block.price} грн</p>}
-        {block.link && <a href={block.link} target="_blank" rel="noreferrer" className="text-sm text-blue-600 hover:underline">Квиток →</a>}
+        {safeUrl(block.link) && <a href={safeUrl(block.link)} target="_blank" rel="noreferrer noopener" className="text-sm text-blue-600 hover:underline">Квиток →</a>}
       </div>
     </div>
   )
@@ -310,7 +316,7 @@ function AccommodationBlock({ block, onChange, editable }) {
         <p className="font-semibold text-stone-800">{block.name || 'Житло'}</p>
         {block.location && <p className="text-sm text-stone-500">{block.location}</p>}
         {block.price && <p className="text-sm font-semibold text-brand-700 flex items-center gap-1"><Wallet size={12} className="shrink-0" /> {block.price} грн/ніч{block.nights ? ` × ${block.nights} = ${block.price * block.nights} грн` : ''}</p>}
-        {block.link && <a href={block.link} target="_blank" rel="noreferrer" className="text-sm text-blue-600 hover:underline">Бронювання →</a>}
+        {safeUrl(block.link) && <a href={safeUrl(block.link)} target="_blank" rel="noreferrer noopener" className="text-sm text-blue-600 hover:underline">Бронювання →</a>}
       </div>
     </div>
   )

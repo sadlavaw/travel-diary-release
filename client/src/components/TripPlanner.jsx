@@ -1,4 +1,10 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react'
+
+const safeUrl = (url) => {
+  if (!url) return ''
+  const t = url.trim()
+  return /^https?:\/\//i.test(t) ? t : ''
+}
 import { Plus, Trash2, ChevronDown, ChevronUp, MapPin, TramFront, UtensilsCrossed, Home, Camera, FileText, PlaneTakeoff, PlaneLanding, Wallet, CalendarDays } from 'lucide-react'
 import DatePicker from './DatePicker'
 import { useNominatimSearch } from '../hooks/useNominatimSearch'
@@ -155,7 +161,7 @@ function ActivityRow({ activity, onUpdate, onRemove, editable }) {
             <div className="text-sm text-stone-500 mt-1 space-y-1">
               {activity.location && <p className="flex items-center gap-1.5"><MapPin size={13} className="shrink-0" /> {activity.location}</p>}
               {activity.pricePerNight && <p className="flex items-center gap-1.5"><Wallet size={13} className="shrink-0" /> {activity.pricePerNight} грн/ніч{activity.nights ? ` × ${activity.nights} = ${activity.pricePerNight * activity.nights} грн` : ''}</p>}
-              {activity.link && <a href={activity.link} target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">Бронювання →</a>}
+              {safeUrl(activity.link) && <a href={safeUrl(activity.link)} target="_blank" rel="noreferrer noopener" className="text-blue-600 hover:underline">Бронювання →</a>}
             </div>
           )}
 
