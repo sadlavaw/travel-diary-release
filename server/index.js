@@ -9,6 +9,7 @@ const userRoutes = require('./routes/users');
 const friendRoutes = require('./routes/friends');
 
 async function initDB() {
+  console.log('DATABASE_URL present:', !!process.env.DATABASE_URL);
   await pool.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
   await pool.query(`
     CREATE TABLE IF NOT EXISTS users (
@@ -76,4 +77,4 @@ app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 const PORT = process.env.PORT || 5000;
 initDB()
   .then(() => app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`)))
-  .catch(e => { console.error('DB init failed:', e.message); process.exit(1); });
+  .catch(e => { console.error('DB init failed:', e); process.exit(1); });
