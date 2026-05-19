@@ -32,7 +32,7 @@ export default function TripCard({ trip }) {
     : '?'
 
   return (
-    <Link to={`/trips/${trip.id}`} className="card group block animate-slide-up">
+    <Link to={`/trips/${trip.id}`} className="card group flex flex-col animate-slide-up">
       <div className="relative h-48 overflow-hidden bg-stone-100">
         {trip.photos?.[0] ? (
           <img src={trip.photos[0]} alt={trip.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -57,7 +57,7 @@ export default function TripCard({ trip }) {
         )}
       </div>
 
-      <div className="p-4">
+      <div className="p-4 flex flex-col flex-1">
         {/* Author */}
         {authorName && (
           <div className="flex items-center gap-2 mb-2.5">
@@ -87,7 +87,7 @@ export default function TripCard({ trip }) {
             ))}
           </div>
         )}
-        <div className="mt-3 pt-3 border-t border-stone-100 flex items-center justify-between">
+        <div className="mt-auto pt-3 border-t border-stone-100 flex items-center justify-between">
           <span className="text-xs text-stone-400">{duration} {duration === 1 ? 'день' : duration < 5 ? 'дні' : 'днів'}</span>
           <div className="flex items-center gap-3">
             {trip.createdAt && (
