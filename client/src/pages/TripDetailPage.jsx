@@ -242,11 +242,17 @@ export default function TripDetailPage() {
 
           {/* Photo */}
           {trip.stravaPhoto ? (
-            <div className="flex items-center justify-center overflow-hidden">
+            <div className="relative flex items-center justify-center overflow-hidden">
               <img
                 src={trip.stravaPhoto}
                 alt=""
-                className="max-h-[min(75vh,600px)] w-auto max-w-full object-contain"
+                aria-hidden="true"
+                className="absolute inset-0 h-full w-full object-cover scale-110 blur-2xl opacity-50"
+              />
+              <img
+                src={trip.stravaPhoto}
+                alt=""
+                className="relative z-10 max-h-[min(75vh,600px)] w-auto max-w-full object-contain"
               />
             </div>
           ) : (

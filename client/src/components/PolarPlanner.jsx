@@ -617,7 +617,6 @@ export default function PolarPlanner({
           </span>
           <div>
             <h3 className="text-base font-semibold tracking-tight">Зупинки по маршруту</h3>
-            <p className="text-xs text-stone-500">Порядок визначає лінію на карті та переїзди між містами.</p>
           </div>
         </div>
 

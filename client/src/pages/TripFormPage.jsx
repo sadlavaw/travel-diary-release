@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { toDataUrl } from '../utils/convertImage'
 import { useNavigate, useMatch } from 'react-router-dom'
-import { ArrowLeft, ExternalLink, Footprints, Globe, Lock, Save, Users, Check, ClipboardList, MapPin, BookOpen, Camera, ImageIcon } from 'lucide-react'
+import { ArrowLeft, ExternalLink, Footprints, Globe, Lock, Save, Users, Check, ClipboardList, MapPin, BookOpen, Camera, ImageIcon, CalendarDays } from 'lucide-react'
 import DatePicker from '../components/DatePicker'
 import { useTrips } from '../context/TripsContext'
 import { useAuth } from '../context/AuthContext'
@@ -12,11 +12,12 @@ import PolarPlanner from '../components/PolarPlanner'
 import { normalizeTrip, stopsToRoute } from '../utils/tripItinerary'
 
 const TABS = [
-  { id: 'basic',   label: 'Основне',        Icon: ClipboardList },
-  { id: 'story',   label: 'Розповідь',       Icon: BookOpen },
-  { id: 'planner', label: 'Зупинки',         Icon: MapPin },
-  { id: 'strava',  label: 'Страва',          Icon: Footprints },
-  { id: 'photos',  label: 'Фото',            Icon: Camera },
+  { id: 'basic',    label: 'Основне',   Icon: ClipboardList },
+  { id: 'story',    label: 'Розповідь', Icon: BookOpen },
+  { id: 'planner',  label: 'Зупинки',   Icon: MapPin },
+  { id: 'schedule', label: 'Розклад',   Icon: CalendarDays },
+  { id: 'strava',   label: 'Strava',    Icon: Footprints },
+  { id: 'photos',   label: 'Фото',      Icon: Camera },
 ]
 
 const EMPTY_FORM = {
@@ -426,33 +427,29 @@ export default function TripFormPage() {
 
       {/* ---- PLANNER ---- */}
       {activeTab === 'planner' && (
-        <div className="space-y-6 animate-fade-in">
-          <div className="rounded-2xl border border-stone-100 bg-white p-6 shadow-sm shadow-stone-900/5">
-            <div className="mb-5 flex items-center justify-between gap-3">
-              <div>
-                <h2 className="font-semibold text-stone-800">Зупинки та переїзди</h2>
-                <p className="mt-0.5 text-xs text-stone-500">Маршрут на карті синхронізується з цим списком.</p>
-              </div>
-              <span className="shrink-0 rounded-lg bg-stone-100 px-2.5 py-1 text-xs text-stone-500">Polarsteps</span>
-            </div>
-            <PolarPlanner
-              stops={form.stops || []}
-              legs={form.legs || []}
-              onChange={handleItineraryChange}
-              editable
-              startDate={form.startDate}
-            />
-          </div>
-          <div className="rounded-2xl border border-stone-100 bg-white p-6 shadow-sm shadow-stone-900/5">
-            <h2 className="mb-2 font-semibold text-stone-800">Розклад по днях</h2>
-            <p className="mb-4 text-xs text-stone-500">Опційно: активності та бюджет по кожному дню.</p>
-            <TripPlanner
-              days={form.days}
-              onChange={handleDaysChange}
-              editable
-              startDate={form.startDate}
-            />
-          </div>
+        <div className="animate-fade-in rounded-2xl border border-stone-100 bg-white p-6 shadow-sm shadow-stone-900/5">
+          <h2 className="mb-5 font-semibold text-stone-800">Зупинки та переїзди</h2>
+          <PolarPlanner
+            stops={form.stops || []}
+            legs={form.legs || []}
+            onChange={handleItineraryChange}
+            editable
+            startDate={form.startDate}
+          />
+        </div>
+      )}
+
+      {/* ---- SCHEDULE ---- */}
+      {activeTab === 'schedule' && (
+        <div className="animate-fade-in rounded-2xl border border-stone-100 bg-white p-6 shadow-sm shadow-stone-900/5">
+          <h2 className="mb-2 font-semibold text-stone-800">Розклад по днях</h2>
+          <p className="mb-4 text-xs text-stone-500">Активності та бюджет по кожному дню.</p>
+          <TripPlanner
+            days={form.days}
+            onChange={handleDaysChange}
+            editable
+            startDate={form.startDate}
+          />
         </div>
       )}
 
