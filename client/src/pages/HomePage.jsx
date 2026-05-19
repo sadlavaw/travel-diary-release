@@ -128,7 +128,6 @@ export default function HomePage() {
           </p>
           {!hasFilters && (
             <Link to="/trips/new" className="btn-primary inline-flex items-center gap-2">
-              <PlusCircle size={18} />
               Додати подорож
             </Link>
           )}
