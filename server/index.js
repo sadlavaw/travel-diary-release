@@ -61,10 +61,20 @@ async function initDB() {
 
 const app = express();
 
-const allowedOrigins = process.env.CLIENT_URL
-  ? [process.env.CLIENT_URL, 'http://localhost:5173']
-  : ['http://localhost:5173'];
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+const allowedOrigins = [
+  'http://localhost:5173',
+  ...(process.env.CLIENT_URL ? [process.env.CLIENT_URL] : []),
+];
+app.use(cors({
+  origin: (origin, cb) => {
+    if (!origin || allowedOrigins.includes(origin) || /\.vercel\.app$/.test(origin)) {
+      cb(null, true);
+    } else {
+      cb(new Error('CORS: ' + origin));
+    }
+  },
+  credentials: true,
+}));
 app.use(express.json({ limit: '10mb' }));
 
 app.use('/api/auth', authRoutes);
