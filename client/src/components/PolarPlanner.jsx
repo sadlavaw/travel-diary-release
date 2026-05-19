@@ -170,9 +170,6 @@ function CityAutocomplete({ onPick, disabled }) {
         </label>
       </div>
       {dropdown}
-      <p className="mt-2 text-[10px] leading-snug text-stone-400">
-        Пошук через OpenStreetMap Nominatim. Список відкривається вгору від поля, щоб не перекривати зупинки.
-      </p>
     </div>
   )
 }
@@ -279,59 +276,61 @@ function LegEditor({ leg, fromStop, toStop, onChange, editable }) {
           </select>
         </div>
       )}
-      <div className="flex flex-wrap items-end gap-2">
-        <div>
-          <span className="mb-0.5 block text-[10px] text-stone-400">Оцінка</span>
-          <span className="rounded-lg border border-stone-100 bg-white/90 px-2 py-1.5 text-xs text-stone-500">
-            ~{formatDurationMinutes(est)}
-          </span>
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-semibold uppercase tracking-wide text-stone-500">Тривалість</span>
+          <span className="text-xs text-stone-400">~{formatDurationMinutes(est)} авто</span>
         </div>
-        <div className="flex items-center gap-1">
-          <span className="mb-0.5 block w-full text-[10px] text-stone-400">Год</span>
-          <input
-            type="number"
-            min={0}
-            className="input-field w-14 py-2 text-xs"
-            value={hours}
-            onChange={e => {
-              const h = Math.max(0, parseInt(e.target.value, 10) || 0)
-              setDuration(h * 60 + mins, true)
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-0 rounded-xl border border-stone-200 bg-white overflow-hidden divide-x divide-stone-200 flex-1">
+            <div className="flex items-center gap-1.5 px-3 py-2 flex-1">
+              <input
+                type="number"
+                min={0}
+                className="w-full min-w-0 text-sm text-center bg-transparent outline-none font-medium text-stone-800"
+                value={hours}
+                onChange={e => {
+                  const h = Math.max(0, parseInt(e.target.value, 10) || 0)
+                  setDuration(h * 60 + mins, true)
+                }}
+              />
+              <span className="text-xs text-stone-400 shrink-0">год</span>
+            </div>
+            <div className="flex items-center gap-1.5 px-3 py-2 flex-1">
+              <input
+                type="number"
+                min={0}
+                max={59}
+                className="w-full min-w-0 text-sm text-center bg-transparent outline-none font-medium text-stone-800"
+                value={mins}
+                onChange={e => {
+                  const mm = Math.min(59, Math.max(0, parseInt(e.target.value, 10) || 0))
+                  setDuration(hours * 60 + mm, true)
+                }}
+              />
+              <span className="text-xs text-stone-400 shrink-0">хв</span>
+            </div>
+          </div>
+          <button
+            type="button"
+            className="shrink-0 text-xs font-medium text-brand-600 hover:text-brand-800 bg-brand-50 hover:bg-brand-100 px-3 py-2 rounded-xl transition-colors"
+            onClick={() => {
+              const nextEst = estimateLegMinutes(fromStop, toStop, mode)
+              setDuration(nextEst, false)
             }}
-          />
-        </div>
-        <div className="flex items-center gap-1">
-          <span className="mb-0.5 block w-full text-[10px] text-stone-400">Хв</span>
-          <input
-            type="number"
-            min={0}
-            max={59}
-            className="input-field w-14 py-2 text-xs"
-            value={mins}
-            onChange={e => {
-              const mm = Math.min(59, Math.max(0, parseInt(e.target.value, 10) || 0))
-              setDuration(hours * 60 + mm, true)
-            }}
-          />
+          >
+            Авто
+          </button>
         </div>
         <input
           type="text"
-          placeholder="або «2 год 30 хв»"
-          className="input-field min-w-[100px] flex-1 py-2 text-xs"
+          placeholder="або введіть текстом: 2 год 30 хв"
+          className="input-field py-2 text-xs w-full"
           onBlur={e => {
             const parsed = parseDurationText(e.target.value)
-            if (parsed) setDuration(parsed, true)
+            if (parsed) { setDuration(parsed, true); e.target.value = '' }
           }}
         />
-        <button
-          type="button"
-          className="shrink-0 text-xs font-medium text-brand-600 hover:underline"
-          onClick={() => {
-            const nextEst = estimateLegMinutes(fromStop, toStop, mode)
-            setDuration(nextEst, false)
-          }}
-        >
-          Як оцінка
-        </button>
       </div>
       <div className="flex flex-wrap items-end gap-2 border-t border-purple-100/60 pt-3">
         <div className="min-w-[120px] flex-1">
@@ -656,11 +655,6 @@ export default function PolarPlanner({
           </React.Fragment>
         ))}
 
-        {editable && stops.length > 0 && (
-          <p className="text-xs leading-relaxed text-stone-500">
-            Класичний розклад по днях лишається в даних подорожі, якщо ви його заповнювали; цей блок керує зупинками та переїздами.
-          </p>
-        )}
 
         {editable && (
           <CityAutocomplete onPick={addStopFromPlace} disabled={false} />

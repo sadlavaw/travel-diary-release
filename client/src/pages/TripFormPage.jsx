@@ -13,9 +13,9 @@ import { normalizeTrip, stopsToRoute } from '../utils/tripItinerary'
 
 const TABS = [
   { id: 'basic',   label: 'Основне',        Icon: ClipboardList },
-  { id: 'strava',  label: 'Пішки / Strava',  Icon: Footprints },
-  { id: 'planner', label: 'Зупинки',         Icon: MapPin },
   { id: 'story',   label: 'Розповідь',       Icon: BookOpen },
+  { id: 'planner', label: 'Зупинки',         Icon: MapPin },
+  { id: 'strava',  label: 'Страва',          Icon: Footprints },
   { id: 'photos',  label: 'Фото',            Icon: Camera },
 ]
 
@@ -335,7 +335,6 @@ export default function TripFormPage() {
               <div className="space-y-3 lg:sticky lg:top-4">
                 <div>
                   <h3 className="text-base font-semibold tracking-tight text-stone-800">Прев&apos;ю скріну</h3>
-                  <p className="text-xs text-stone-500">Зліва — як карта в блоці зупинок; вертикальні знімки без обрізання.</p>
                 </div>
                 {form.stravaPhoto ? (
                   <div className="flex min-h-[200px] w-full min-w-0 max-h-[min(75vh,560px)] items-center justify-center overflow-hidden rounded-2xl border border-stone-200 bg-stone-100 shadow-inner shadow-stone-900/5">
@@ -360,17 +359,7 @@ export default function TripFormPage() {
                   </span>
                   <div>
                     <h2 className="font-semibold text-stone-800">Піший маршрут або активність Strava</h2>
-                    <p className="mt-1 text-sm leading-relaxed text-stone-500">
-                      Маршрут на карті — з вкладки «Зупинки». Тут посилання та поля справа; прев&apos;ю зліва.
-                    </p>
                   </div>
-                </div>
-                <div
-                  role="note"
-                  className="rounded-xl border border-amber-100 bg-amber-50/80 px-4 py-3 text-sm text-amber-950/90"
-                >
-                  Сторінки Strava зазвичай <strong className="font-semibold">не можна вбудувати</strong> у сайт (X-Frame-Options).
-                  Відкривайте активність кнопкою; вертикальний скрін добре сидить у прев&apos;ю зліва.
                 </div>
                 <div>
                   <label className="mb-1.5 block text-sm font-semibold text-stone-700">Посилання на активність Strava</label>
@@ -394,7 +383,6 @@ export default function TripFormPage() {
                 </div>
                 <div>
                   <label className="mb-1.5 block text-sm font-semibold text-stone-700">Фото / скрін прев&apos;ю</label>
-                  <p className="mb-2 text-xs text-stone-500">URL або файл — зображення з&apos;являється в колонці зліва.</p>
                   <input
                     type="text"
                     className="input-field mb-2"
@@ -471,9 +459,8 @@ export default function TripFormPage() {
       {/* ---- STORY ---- */}
       {activeTab === 'story' && (
         <div className="animate-fade-in rounded-2xl border border-stone-100 bg-white p-6 shadow-sm shadow-stone-900/5">
-          <div className="flex items-center justify-between mb-4">
+          <div className="mb-4">
             <h2 className="font-semibold text-stone-700">Розповідь — конструктор блоків</h2>
-            <span className="text-xs text-stone-400 bg-stone-100 px-2 py-1 rounded-lg">як Notion</span>
           </div>
           <BlockEditor
             blocks={form.blocks}
