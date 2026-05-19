@@ -1,8 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { MapPin, Calendar, Image, Lock } from 'lucide-react'
+import { MapPin, Calendar, Image, Lock, Clock } from 'lucide-react'
 import { TRIP_STATUSES } from '../data/mockData'
 import { useAuth } from '../context/AuthContext'
+
+function timeAgo(dateStr) {
+  if (!dateStr) return ''
+  const diff = Math.floor((Date.now() - new Date(dateStr)) / 1000)
+  if (diff < 60) return 'щойно'
+  if (diff < 3600) { const m = Math.floor(diff / 60); return `${m} хв тому` }
+  if (diff < 86400) { const h = Math.floor(diff / 3600); return `${h} год тому` }
+  if (diff < 7 * 86400) { const d = Math.floor(diff / 86400); return `${d} ${d === 1 ? 'день' : d < 5 ? 'дні' : 'днів'} тому` }
+  if (diff < 30 * 86400) { const w = Math.floor(diff / (7 * 86400)); return `${w} ${w === 1 ? 'тиждень' : w < 5 ? 'тижні' : 'тижнів'} тому` }
+  if (diff < 365 * 86400) { const mo = Math.floor(diff / (30 * 86400)); return `${mo} міс тому` }
+  return new Date(dateStr).toLocaleDateString('uk-UA', { day: 'numeric', month: 'short', year: 'numeric' })
+}
 
 export default function TripCard({ trip }) {
   const { getUserById } = useAuth()
@@ -76,7 +88,14 @@ export default function TripCard({ trip }) {
         )}
         <div className="mt-3 pt-3 border-t border-stone-100 flex items-center justify-between">
           <span className="text-xs text-stone-400">{duration} {duration === 1 ? 'день' : duration < 5 ? 'дні' : 'днів'}</span>
-          <span className="text-xs font-semibold text-brand-600 group-hover:text-brand-700">Читати →</span>
+          <div className="flex items-center gap-3">
+            {trip.createdAt && (
+              <span className="flex items-center gap-1 text-xs text-stone-400">
+                <Clock size={10} className="shrink-0" />{timeAgo(trip.createdAt)}
+              </span>
+            )}
+            <span className="text-xs font-semibold text-brand-600 group-hover:text-brand-700">Читати →</span>
+          </div>
         </div>
       </div>
     </Link>
