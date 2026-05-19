@@ -95,20 +95,25 @@ function PlaceholderCity() {
   const buildings = [[0,58,22,42],[24,48,18,52],[44,36,20,64],[66,50,16,50],[84,30,18,70],[104,44,24,56],[130,38,16,62],[148,53,20,47],[170,40,18,60],[190,56,10,44]]
   const windows = [[8,64],[8,74],[14,64],[14,74],[27,54],[27,64],[34,54],[47,42],[47,52],[53,42],[87,37],[87,47],[93,37],[107,50],[113,50],[107,60],[133,44],[133,54],[152,59],[158,59],[173,46],[173,56]]
   return (
-    <div className="w-full h-full" style={{ background: 'linear-gradient(180deg,#0f172a 0%,#1e293b 55%,#334155 100%)' }}>
+    <div className="w-full h-full" style={{ background: 'linear-gradient(180deg,#bfdbfe 0%,#dbeafe 40%,#e0f2fe 100%)' }}>
       <svg viewBox="0 0 200 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
-        <circle cx="168" cy="16" r="9" fill="rgba(254,240,138,0.75)" />
-        <circle cx="168" cy="16" r="15" fill="rgba(254,240,138,0.12)" />
-        {[[22,12],[50,8],[82,16],[118,7],[148,13]].map(([x,y],i) => (
-          <circle key={i} cx={x} cy={y} r="1.2" fill="rgba(255,255,255,0.55)" />
-        ))}
+        {/* Sun */}
+        <circle cx="30" cy="18" r="11" fill="rgba(253,224,71,0.92)" />
+        <circle cx="30" cy="18" r="18" fill="rgba(253,224,71,0.18)" />
+        {/* Clouds */}
+        <ellipse cx="90" cy="14" rx="22" ry="8" fill="rgba(255,255,255,0.7)" />
+        <ellipse cx="110" cy="12" rx="16" ry="7" fill="rgba(255,255,255,0.65)" />
+        <ellipse cx="160" cy="20" rx="18" ry="7" fill="rgba(255,255,255,0.6)" />
+        {/* Buildings — slate silhouettes */}
         {buildings.map(([x,y,w,h],i) => (
-          <rect key={i} x={x} y={y} width={w} height={h} fill="rgba(15,23,42,0.88)" />
+          <rect key={i} x={x} y={y} width={w} height={h} fill="rgba(71,85,105,0.75)" />
         ))}
+        {/* Windows — light blue reflections */}
         {windows.map(([x,y],i) => (
-          <rect key={i} x={x} y={y} width="3" height="3" fill="rgba(254,240,138,0.68)" />
+          <rect key={i} x={x} y={y} width="3" height="3" fill="rgba(186,230,253,0.85)" />
         ))}
-        <rect x="0" y="95" width="200" height="5" fill="rgba(8,12,22,0.95)" />
+        {/* Ground */}
+        <rect x="0" y="95" width="200" height="5" fill="rgba(51,65,85,0.5)" />
       </svg>
     </div>
   )
