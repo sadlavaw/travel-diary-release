@@ -7,7 +7,7 @@ import { useAuth } from '../context/AuthContext'
 function PlaceholderMountains() {
   return (
     <div className="w-full h-full" style={{ background: 'linear-gradient(170deg,#d4e4f0 0%,#a8c4da 50%,#7a9fb8 100%)' }}>
-      <svg viewBox="0 0 200 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
+      <svg viewBox="0 0 200 100" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 w-full h-full">
         <circle cx="168" cy="18" r="18" fill="rgba(220,238,255,0.35)" />
         {/* Far range */}
         <polygon points="0,100 0,72 18,50 32,62 52,32 68,46 88,36 108,52 128,28 148,44 168,34 188,48 200,42 200,100" fill="rgba(130,158,190,0.55)" />
@@ -27,7 +27,7 @@ function PlaceholderMountains() {
 function PlaceholderSea() {
   return (
     <div className="w-full h-full" style={{ background: 'linear-gradient(180deg,#bfdbfe 0%,#7dd3fc 38%,#1d4ed8 100%)' }}>
-      <svg viewBox="0 0 200 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
+      <svg viewBox="0 0 200 100" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 w-full h-full">
         <circle cx="155" cy="36" r="12" fill="rgba(253,224,71,0.88)" />
         <circle cx="155" cy="36" r="18" fill="rgba(253,224,71,0.18)" />
         {/* Horizon */}
@@ -46,7 +46,7 @@ function PlaceholderSea() {
 function PlaceholderFields() {
   return (
     <div className="w-full h-full" style={{ background: 'linear-gradient(180deg,#fef9c3 0%,#fde68a 42%,#b45309 100%)' }}>
-      <svg viewBox="0 0 200 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
+      <svg viewBox="0 0 200 100" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 w-full h-full">
         <ellipse cx="38" cy="20" rx="28" ry="10" fill="rgba(255,255,255,0.28)" />
         <ellipse cx="148" cy="16" rx="22" ry="8" fill="rgba(255,255,255,0.22)" />
         {/* Field */}
@@ -70,7 +70,7 @@ function PlaceholderForest() {
   const frontTrees = [[25,80,22,18],[55,81,26,20],[85,80,20,16],[115,81,24,19],[148,80,22,18],[175,81,20,16]]
   return (
     <div className="w-full h-full" style={{ background: 'linear-gradient(180deg,#d1fae5 0%,#34d399 42%,#065f46 100%)' }}>
-      <svg viewBox="0 0 200 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
+      <svg viewBox="0 0 200 100" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 w-full h-full">
         {backTrees.map(([x,base,w,h],i) => (
           <g key={i}>
             <rect x={x-2} y={base-5} width="4" height="10" fill="rgba(30,41,10,0.45)" />
@@ -96,7 +96,7 @@ function PlaceholderCity() {
   const windows = [[8,64],[8,74],[14,64],[14,74],[27,54],[27,64],[34,54],[47,42],[47,52],[53,42],[87,37],[87,47],[93,37],[107,50],[113,50],[107,60],[133,44],[133,54],[152,59],[158,59],[173,46],[173,56]]
   return (
     <div className="w-full h-full" style={{ background: 'linear-gradient(180deg,#bfdbfe 0%,#dbeafe 40%,#e0f2fe 100%)' }}>
-      <svg viewBox="0 0 200 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
+      <svg viewBox="0 0 200 100" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 w-full h-full">
         {/* Sun */}
         <circle cx="30" cy="18" r="11" fill="rgba(253,224,71,0.92)" />
         <circle cx="30" cy="18" r="18" fill="rgba(253,224,71,0.18)" />
@@ -122,7 +122,7 @@ function PlaceholderCity() {
 function PlaceholderRiver() {
   return (
     <div className="w-full h-full" style={{ background: 'linear-gradient(155deg,#d1fae5 0%,#a7f3d0 55%,#6ee7b7 100%)' }}>
-      <svg viewBox="0 0 200 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
+      <svg viewBox="0 0 200 100" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 w-full h-full">
         <circle cx="160" cy="22" r="20" fill="rgba(255,255,255,0.2)" />
         {/* Left bank */}
         <polygon points="0,100 0,40 14,46 28,38 42,50 54,42 66,55 72,100" fill="rgba(34,197,94,0.55)" />
