@@ -144,7 +144,7 @@ const SEA_REGIONS = ['одеськ','миколаїв','херсон']
 const FIELD_REGIONS = ['полтав','кіровоград','черкас','харків','запоріз','дніпр']
 const FOREST_REGIONS = ['волин','житомир','чернігів','рівнен','сум']
 
-function TripPlaceholder({ trip }) {
+export function TripPlaceholder({ trip }) {
   const r = (trip.region || '').toLowerCase()
   let Component
   if (MOUNTAIN_REGIONS.some(k => r.includes(k))) Component = PlaceholderMountains

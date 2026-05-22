@@ -9,6 +9,7 @@ import { toDataUrl } from '../utils/convertImage'
 import { useTrips } from '../context/TripsContext'
 import { TRIP_STATUSES } from '../data/mockData'
 import UkraineMap from '../components/UkraineMap'
+import { TripPlaceholder } from '../components/TripCard'
 import { calcTripBudget, calcPersonalBudget, normalizeTrip } from '../utils/tripItinerary'
 import { api } from '../api'
 
@@ -54,9 +55,7 @@ function TripPost({ trip }) {
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-brand-100 to-earth-100">
-            <status.Icon size={40} className="text-brand-400" />
-          </div>
+          <TripPlaceholder trip={trip} />
         )}
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
